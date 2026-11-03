@@ -1,0 +1,102 @@
+# Canonical skills, backend roles first.
+#
+# id:     skill:<slug>, lowercase. Never rename an id once evidence references it.
+# name:   display name; also matched as an alias.
+# parent: optional broader skill (fastapi -> python-web-framework).
+# group:  true for umbrella skills such as "relational database". Postings can ask for
+#         them, but how child evidence credits a group is an open scoring decision.
+#
+# Nothing is added here automatically. Unknown posting terms stay unmapped until a human
+# adds or maps them.
+
+skills:
+  # Umbrella skills
+  - {id: skill:programming-language, name: Programming language, group: true}
+  - {id: skill:python-web-framework, name: Python web framework, group: true}
+  - {id: skill:jvm-web-framework, name: JVM web framework, group: true}
+  - {id: skill:node-web-framework, name: Node.js web framework, group: true}
+  - {id: skill:relational-database, name: Relational database, group: true}
+  - {id: skill:nosql-database, name: NoSQL database, group: true}
+  - {id: skill:message-broker, name: Message broker, group: true}
+  - {id: skill:cloud-platform, name: Cloud platform, group: true}
+  - {id: skill:ci-cd, name: CI/CD, group: true}
+  - {id: skill:infrastructure-as-code, name: Infrastructure as code, group: true}
+  - {id: skill:automated-testing, name: Automated testing, group: true}
+
+  # Languages
+  - {id: skill:python, name: Python, parent: skill:programming-language}
+  - {id: skill:java, name: Java, parent: skill:programming-language}
+  - {id: skill:kotlin, name: Kotlin, parent: skill:programming-language}
+  - {id: skill:scala, name: Scala, parent: skill:programming-language}
+  - {id: skill:go, name: Go, parent: skill:programming-language}
+  - {id: skill:rust, name: Rust, parent: skill:programming-language}
+  - {id: skill:javascript, name: JavaScript, parent: skill:programming-language}
+  - {id: skill:typescript, name: TypeScript, parent: skill:programming-language}
+  - {id: skill:csharp, name: "C#", parent: skill:programming-language}
+  - {id: skill:cpp, name: "C++", parent: skill:programming-language}
+  - {id: skill:c, name: C, parent: skill:programming-language}
+  - {id: skill:ruby, name: Ruby, parent: skill:programming-language}
+  - {id: skill:php, name: PHP, parent: skill:programming-language}
+  - {id: skill:elixir, name: Elixir, parent: skill:programming-language}
+  - {id: skill:sql, name: SQL, parent: skill:programming-language}
+  - {id: skill:bash, name: Bash, parent: skill:programming-language}
+
+  # Web frameworks and runtimes
+  - {id: skill:django, name: Django, parent: skill:python-web-framework}
+  - {id: skill:fastapi, name: FastAPI, parent: skill:python-web-framework}
+  - {id: skill:flask, name: Flask, parent: skill:python-web-framework}
+  - {id: skill:spring-boot, name: Spring Boot, parent: skill:jvm-web-framework}
+  - {id: skill:nodejs, name: Node.js}
+  - {id: skill:express, name: Express, parent: skill:node-web-framework}
+  - {id: skill:nestjs, name: NestJS, parent: skill:node-web-framework}
+  - {id: skill:rails, name: Ruby on Rails}
+  - {id: skill:laravel, name: Laravel}
+  - {id: skill:dotnet, name: .NET}
+  - {id: skill:aspnet-core, name: ASP.NET Core}
+  - {id: skill:react, name: React}
+
+  # Python ecosystem
+  - {id: skill:sqlalchemy, name: SQLAlchemy}
+  - {id: skill:celery, name: Celery}
+  - {id: skill:pydantic, name: Pydantic}
+  - {id: skill:pytest, name: pytest, parent: skill:automated-testing}
+  - {id: skill:pandas, name: pandas}
+
+  # Data stores
+  - {id: skill:postgresql, name: PostgreSQL, parent: skill:relational-database}
+  - {id: skill:mysql, name: MySQL, parent: skill:relational-database}
+  - {id: skill:sqlite, name: SQLite, parent: skill:relational-database}
+  - {id: skill:sql-server, name: SQL Server, parent: skill:relational-database}
+  - {id: skill:mongodb, name: MongoDB, parent: skill:nosql-database}
+  - {id: skill:dynamodb, name: DynamoDB, parent: skill:nosql-database}
+  - {id: skill:cassandra, name: Cassandra, parent: skill:nosql-database}
+  - {id: skill:redis, name: Redis, parent: skill:nosql-database}
+  - {id: skill:elasticsearch, name: Elasticsearch}
+
+  # Messaging
+  - {id: skill:kafka, name: Kafka, parent: skill:message-broker}
+  - {id: skill:rabbitmq, name: RabbitMQ, parent: skill:message-broker}
+
+  # Cloud and infrastructure
+  - {id: skill:aws, name: AWS, parent: skill:cloud-platform}
+  - {id: skill:gcp, name: GCP, parent: skill:cloud-platform}
+  - {id: skill:azure, name: Azure, parent: skill:cloud-platform}
+  - {id: skill:docker, name: Docker}
+  - {id: skill:kubernetes, name: Kubernetes}
+  - {id: skill:helm, name: Helm}
+  - {id: skill:terraform, name: Terraform, parent: skill:infrastructure-as-code}
+  - {id: skill:ansible, name: Ansible, parent: skill:infrastructure-as-code}
+  - {id: skill:linux, name: Linux}
+  - {id: skill:nginx, name: Nginx}
+  - {id: skill:github-actions, name: GitHub Actions, parent: skill:ci-cd}
+  - {id: skill:gitlab-ci, name: GitLab CI, parent: skill:ci-cd}
+  - {id: skill:jenkins, name: Jenkins, parent: skill:ci-cd}
+  - {id: skill:prometheus, name: Prometheus}
+  - {id: skill:grafana, name: Grafana}
+
+  # APIs and architecture
+  - {id: skill:rest-api, name: REST APIs}
+  - {id: skill:graphql, name: GraphQL}
+  - {id: skill:grpc, name: gRPC}
+  - {id: skill:microservices, name: Microservices}
+  - {id: skill:git, name: Git}

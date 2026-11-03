@@ -1,0 +1,8 @@
+name: Devi Raman
+emails: [devi.raman@example.com]
+received_on: 2026-10-15
+claimed: [skill:typescript, skill:javascript, skill:react, skill:nodejs, skill:express, skill:mongodb, skill:graphql, skill:python, skill:sql, skill:git, skill:github-actions, skill:sqlite, Jest, Apollo Server, React Native]
+acceptable: [skill:rest-api, REST endpoints, skill:automated-testing]
+last_seen:
+  skill:sqlite: 2023-12-31
+  skill:github-actions: 2025-08-31

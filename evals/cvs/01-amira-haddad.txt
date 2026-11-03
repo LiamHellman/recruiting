@@ -1,0 +1,36 @@
+AMIRA HADDAD
+Backend Developer
+Montréal, QC H2X 1Y4 · +1 (514) 555-0142 · amira.haddad@example.com
+github.com/amira-h · amira.dev/
+
+SUMMARY
+Backend developer with six years of Python experience building web services with Django and PostgreSQL. Open-source contributor.
+
+EXPERIENCE
+
+Senior Backend Developer — Lumen Freight, Montréal    Jan 2022 – Present
+- Designed the shipment-tracking API in Django and Django REST Framework, serving 40k requests per minute.
+- Modelled billing schemas in PostgreSQL and wrote the migration tooling.
+- Containerised services with Docker and set up GitHub Actions pipelines.
+- Mentored two junior developers.
+
+Backend Developer — Pixelbay Studio, Montréal    Jun 2019 – Dec 2021
+- Built content-management features in Python 3 and Django.
+- Moved background jobs from cron to Celery with Redis as the broker.
+- Wrote unit tests with pytest; raised coverage from 40% to 85%.
+
+OPEN SOURCE
+Contributor, django-tablekit    2021 – Present
+- 14 merged pull requests: query optimisation for PostgreSQL JSON fields and Python 3.12 support.
+
+EDUCATION
+B.Sc. Computer Science — Université de Montréal
+
+SKILLS
+Languages: Python, SQL, Bash
+Frameworks: Django, Django REST Framework, Celery
+Data: PostgreSQL, Redis
+Tools: Docker, Git, GitHub Actions, Linux
+
+LANGUAGES
+English, French, Arabic

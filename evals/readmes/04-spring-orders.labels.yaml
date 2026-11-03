@@ -1,0 +1,13 @@
+uses:
+  - skill:java
+  - skill:spring-boot
+  - skill:mysql
+  - skill:kafka
+  - Testcontainers
+  - Maven
+  - skill:aws
+acceptable:
+  - skill:microservices
+  - AWS ECS
+  - Application Load Balancer
+  - skill:automated-testing

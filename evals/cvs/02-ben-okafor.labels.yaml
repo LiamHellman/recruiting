@@ -1,0 +1,8 @@
+name: Ben Okafor
+emails: [ben.okafor@example.com]
+received_on: 2026-10-15
+claimed: [skill:python, skill:fastapi, skill:postgresql, skill:docker, skill:aws, skill:redis, skill:git, skill:sql, Heroku]
+acceptable: []
+last_seen:
+  skill:fastapi: 2023-02-28
+  skill:aws: 2026-10-15

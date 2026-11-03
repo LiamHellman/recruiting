@@ -1,0 +1,21 @@
+Devi Raman
+devi.raman@example.com · (647) 555-0123 · Waterloo, ON
+Portfolio: https://deviraman.example.dev
+
+Education
+Bachelor of Computer Science (Co-op), University of Waterloo — expected April 2027
+
+Experience
+Software Developer Intern — Maple Health, Toronto (May 2025 – Aug 2025)
+• Built patient-intake forms in React and TypeScript.
+• Added Jest unit tests and a GitHub Actions workflow for the front end.
+
+Software Developer Intern — Quill Labs (Sept 2024 – Dec 2024)
+• Wrote REST endpoints in Node.js and Express backed by MongoDB.
+
+Projects
+StudyBuddy (2024): a GraphQL API with Apollo Server and a React Native client.
+Course scheduler (2023): Python script that scrapes timetables into SQLite.
+
+Skills
+TypeScript, JavaScript, React, Node.js, Express, MongoDB, GraphQL, Python, SQL, Git

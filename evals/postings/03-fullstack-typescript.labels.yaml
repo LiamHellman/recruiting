@@ -1,0 +1,3 @@
+must_have: [skill:typescript, skill:react, skill:nodejs, skill:nestjs, skill:sql, skill:postgresql, skill:graphql]
+nice_to_have: [skill:docker, skill:aws, skill:redis]
+seniority: mid

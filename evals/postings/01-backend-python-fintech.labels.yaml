@@ -1,0 +1,4 @@
+# Hand labels. Mapped skills by id; unmapped terms by the name the posting uses.
+must_have: [skill:python, skill:django, skill:sql, skill:postgresql, skill:celery, skill:automated-testing, skill:pytest]
+nice_to_have: [skill:kubernetes, skill:terraform, skill:aws, skill:redis]
+seniority: senior

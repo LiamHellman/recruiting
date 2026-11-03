@@ -1,0 +1,18 @@
+Elif Kaya — Data Engineer
+Vancouver, BC | elif.kaya@example.com
+
+Experience
+Data Engineer, Cascadia Energy — 06/2021 to present
+* Built batch pipelines in Python orchestrated with Apache Airflow, loading data into Snowflake.
+* Modelled the warehouse with dbt; wrote data-quality checks in SQL.
+* Streaming ingestion from Kafka with Spark Structured Streaming on AWS EMR.
+* Provisioned infrastructure with Terraform.
+
+Data Analyst, Harbourview Insurance — 09/2018 to 05/2021
+* Reporting in SQL Server and Python (pandas).
+* Automated weekly reports with Bash and cron.
+
+Education
+M.Sc. Statistics, University of British Columbia
+
+Skills: Python, SQL, Airflow, Spark, dbt, Snowflake, Kafka, AWS, Terraform, pandas

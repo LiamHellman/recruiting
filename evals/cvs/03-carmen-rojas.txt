@@ -1,0 +1,25 @@
+CARMEN ROJAS
+Senior Java Engineer
+Calgary, Alberta | carmen.rojas@example.com | +1 403 555 0177
+
+Professional Summary
+Java engineer with experience across payments and telecom. Returned to work in 2019 after a career break for family care.
+
+Experience
+Senior Software Engineer | Prairie Payments Inc. | 2019 – Present
+- Build payment-routing microservices in Java 17 and Spring Boot.
+- Event streaming with Apache Kafka; schemas stored in PostgreSQL.
+- Deploy to Kubernetes on Azure using Helm charts and Jenkins pipelines.
+
+Career break (family care) | 2016 – 2019
+
+Software Engineer | Telcom West | 2008 – 2016
+- Developed billing systems in Java EE and Oracle Database.
+- Wrote shell scripts for nightly batch jobs on Linux.
+- Introduced JUnit-based automated tests to the billing team.
+
+Education
+Bachelor of Engineering, Software Engineering — University of Calgary
+
+Certifications
+Microsoft Certified: Azure Developer Associate

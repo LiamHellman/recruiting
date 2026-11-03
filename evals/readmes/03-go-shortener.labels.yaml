@@ -1,0 +1,8 @@
+uses:
+  - skill:go
+  - skill:redis
+  - skill:grpc
+  - skill:prometheus
+  - skill:helm
+  - skill:kubernetes
+acceptable: []

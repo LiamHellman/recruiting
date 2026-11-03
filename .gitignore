@@ -1,0 +1,29 @@
+# Secrets and local config
+.env
+*.env
+!.env.example
+CLAUDE.md
+/docs/**
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Candidate files and other personal data never go in git
+storage/
+uploads/
+*.pdf
+*.docx
+!evals/**/*.pdf
+!backend/tests/fixtures/**/*.pdf
+!backend/tests/fixtures/**/*.docx
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

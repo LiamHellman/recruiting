@@ -1,0 +1,8 @@
+uses:
+  - skill:rails
+  - skill:postgresql
+  - Sidekiq
+  - skill:redis
+  - Heroku
+acceptable:
+  - skill:ruby

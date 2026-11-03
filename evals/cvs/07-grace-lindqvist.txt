@@ -1,0 +1,26 @@
+CURRICULUM VITAE
+
+Personal details
+Name: Grace Lindqvist
+Address: 14 Harbour Street, Halifax, NS B3J 2K9
+Phone: +1 902 555 0110
+Email: grace.lindqvist@example.com
+Date of birth: 12 March 1984
+Nationality: Swedish
+Marital status: Married, two children
+Photo: attached
+
+Professional experience
+2018 – present  Senior .NET Developer, Atlantic Mutual, Halifax
+  Develop policy-administration services in C# with ASP.NET Core and Entity Framework Core.
+  Databases: Microsoft SQL Server. Hosting: Microsoft Azure (App Service, Azure Functions).
+  CI/CD with Azure DevOps.
+
+2012 – 2018  Software Developer, Nordkust Systems, Gothenburg
+  Desktop applications in C# and WPF on the .NET Framework.
+
+Education
+MSc Software Engineering, Chalmers University of Technology
+
+Languages
+Swedish (native), English (fluent)

@@ -1,0 +1,3 @@
+must_have: [skill:java, skill:spring-boot, skill:kafka, skill:mysql, skill:microservices, skill:rest-api]
+nice_to_have: [skill:kotlin, skill:docker, skill:kubernetes, skill:grpc]
+seniority: senior

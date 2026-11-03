@@ -1,0 +1,8 @@
+name: Elif Kaya
+emails: [elif.kaya@example.com]
+received_on: 2026-10-15
+claimed: [skill:python, skill:sql, skill:kafka, skill:aws, skill:terraform, skill:pandas, skill:sql-server, skill:bash, Airflow, Spark, dbt, Snowflake]
+acceptable: [Apache Airflow, Spark Structured Streaming, Apache Spark, AWS EMR, EMR, cron]
+last_seen:
+  skill:sql-server: 2021-05-31
+  skill:pandas: 2026-10-15

@@ -1,0 +1,5 @@
+must_have: [skill:go, skill:kubernetes, skill:terraform, "AWS or GCP", skill:ci-cd, skill:github-actions, skill:prometheus, skill:grafana]
+nice_to_have: [skill:rust, skill:kafka, skill:helm]
+seniority: staff
+# Defensible either way: neither a false positive nor a miss.
+acceptable: [skill:infrastructure-as-code]

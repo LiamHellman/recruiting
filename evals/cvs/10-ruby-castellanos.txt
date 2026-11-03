@@ -1,0 +1,21 @@
+Ruby Castellanos
+Backend Engineer
+Montréal, QC · ruby.castellanos@example.com · github.com/rubycast
+
+Summary
+Backend engineer working mostly in Elixir and Ruby. Ruby has been my main language since 2015.
+
+Experience
+Backend Engineer — Fernhill Games (Feb 2021 – Present)
+- Real-time matchmaking service in Elixir with Phoenix; state in PostgreSQL and Redis.
+- Maintains the RabbitMQ consumers for game analytics.
+
+Software Developer — Tidewater Media (Aug 2015 – Jan 2021)
+- Built the subscriptions platform in Ruby on Rails with MySQL.
+- Introduced Docker for local development.
+
+Education
+B.Sc. Computer Science, Concordia University
+
+Skills
+Elixir, Phoenix, Ruby, Rails, PostgreSQL, Redis, RabbitMQ, MySQL, Docker

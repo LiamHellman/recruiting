@@ -1,0 +1,160 @@
+# Deterministic GitHub evidence: names found in a repository -> canonical skill ids.
+#
+# A dependency, Docker image or file extension listed here is evidence for the skill
+# (`demonstrated` in the candidate's own repos, `deep` via merged PRs to others' repos).
+# Anything not listed is ignored, never guessed: no fuzzy matching and no lookups of package
+# names in the alias table (npm's `rest` package is not REST API design).
+# Like aliases, these feed scoring: a human approves every addition.
+#
+# pypi:   PEP 503-normalized names (lowercase, runs of -_. become -). `prefix-*` matches a family.
+# npm:    exact names; `@scope/*` matches a scope.
+# go:     module paths; a module matches its own path and any path below it (/v2, ...).
+# maven:  groupId:artifactId; `groupId:*` matches the group.
+# images: Docker image names without registry, tag or digest (docker.io/library/ dropped).
+# extensions: file extension -> language, for files changed in merged PRs and for picking a
+#         file to cite for a repo's language.
+
+pypi:
+  django: skill:django
+  fastapi: skill:fastapi
+  flask: skill:flask
+  celery: skill:celery
+  pydantic: skill:pydantic
+  pytest: skill:pytest
+  pandas: skill:pandas
+  sqlalchemy: skill:sqlalchemy
+  psycopg: skill:postgresql
+  psycopg-binary: skill:postgresql
+  psycopg2: skill:postgresql
+  psycopg2-binary: skill:postgresql
+  asyncpg: skill:postgresql
+  pymysql: skill:mysql
+  mysqlclient: skill:mysql
+  mysql-connector-python: skill:mysql
+  aiomysql: skill:mysql
+  pymongo: skill:mongodb
+  motor: skill:mongodb
+  redis: skill:redis
+  boto3: skill:aws
+  botocore: skill:aws
+  aiobotocore: skill:aws
+  google-cloud-*: skill:gcp
+  azure-*: skill:azure
+  kafka-python: skill:kafka
+  confluent-kafka: skill:kafka
+  aiokafka: skill:kafka
+  pika: skill:rabbitmq
+  aio-pika: skill:rabbitmq
+  elasticsearch: skill:elasticsearch
+  cassandra-driver: skill:cassandra
+  grpcio: skill:grpc
+  graphene: skill:graphql
+  strawberry-graphql: skill:graphql
+  ariadne: skill:graphql
+  prometheus-client: skill:prometheus
+
+npm:
+  express: skill:express
+  "@nestjs/core": skill:nestjs
+  react: skill:react
+  typescript: skill:typescript
+  pg: skill:postgresql
+  mysql: skill:mysql
+  mysql2: skill:mysql
+  mongodb: skill:mongodb
+  mongoose: skill:mongodb
+  redis: skill:redis
+  ioredis: skill:redis
+  aws-sdk: skill:aws
+  "@aws-sdk/*": skill:aws
+  "@google-cloud/*": skill:gcp
+  "@azure/*": skill:azure
+  kafkajs: skill:kafka
+  amqplib: skill:rabbitmq
+  graphql: skill:graphql
+  "@apollo/server": skill:graphql
+  apollo-server: skill:graphql
+  "@grpc/grpc-js": skill:grpc
+  "@elastic/elasticsearch": skill:elasticsearch
+  prom-client: skill:prometheus
+
+go:
+  github.com/jackc/pgx: skill:postgresql
+  github.com/lib/pq: skill:postgresql
+  github.com/go-sql-driver/mysql: skill:mysql
+  go.mongodb.org/mongo-driver: skill:mongodb
+  github.com/redis/go-redis: skill:redis
+  github.com/go-redis/redis: skill:redis
+  github.com/aws/aws-sdk-go: skill:aws
+  github.com/aws/aws-sdk-go-v2: skill:aws
+  cloud.google.com/go: skill:gcp
+  github.com/Azure/azure-sdk-for-go: skill:azure
+  google.golang.org/grpc: skill:grpc
+  github.com/segmentio/kafka-go: skill:kafka
+  github.com/IBM/sarama: skill:kafka
+  github.com/Shopify/sarama: skill:kafka
+  github.com/rabbitmq/amqp091-go: skill:rabbitmq
+  github.com/streadway/amqp: skill:rabbitmq
+  github.com/prometheus/client_golang: skill:prometheus
+  github.com/elastic/go-elasticsearch: skill:elasticsearch
+
+maven:
+  "org.springframework.boot:*": skill:spring-boot
+  "org.postgresql:postgresql": skill:postgresql
+  "com.mysql:mysql-connector-j": skill:mysql
+  "mysql:mysql-connector-java": skill:mysql
+  "org.mongodb:*": skill:mongodb
+  "org.apache.kafka:*": skill:kafka
+  "software.amazon.awssdk:*": skill:aws
+  "com.amazonaws:*": skill:aws
+  "com.google.cloud:*": skill:gcp
+  "com.azure:*": skill:azure
+  "io.grpc:*": skill:grpc
+  "redis.clients:jedis": skill:redis
+  "io.lettuce:lettuce-core": skill:redis
+
+images:
+  postgres: skill:postgresql
+  postgis/postgis: skill:postgresql
+  mysql: skill:mysql
+  mongo: skill:mongodb
+  redis: skill:redis
+  rabbitmq: skill:rabbitmq
+  elasticsearch: skill:elasticsearch
+  elasticsearch/elasticsearch: skill:elasticsearch
+  nginx: skill:nginx
+  bitnami/kafka: skill:kafka
+  confluentinc/cp-kafka: skill:kafka
+  apache/kafka: skill:kafka
+  prom/prometheus: skill:prometheus
+  grafana/grafana: skill:grafana
+  cassandra: skill:cassandra
+  mssql/server: skill:sql-server
+
+extensions:
+  py: skill:python
+  js: skill:javascript
+  mjs: skill:javascript
+  cjs: skill:javascript
+  jsx: skill:javascript
+  ts: skill:typescript
+  tsx: skill:typescript
+  go: skill:go
+  rs: skill:rust
+  java: skill:java
+  kt: skill:kotlin
+  kts: skill:kotlin
+  scala: skill:scala
+  rb: skill:ruby
+  php: skill:php
+  cs: skill:csharp
+  cpp: skill:cpp
+  cc: skill:cpp
+  cxx: skill:cpp
+  hpp: skill:cpp
+  c: skill:c
+  ex: skill:elixir
+  exs: skill:elixir
+  sql: skill:sql
+  sh: skill:bash
+  bash: skill:bash

@@ -1,0 +1,20 @@
+FARID HAIDARI
+Platform Engineer
+Ottawa, ON · farid.haidari@example.com · github.com/fhaidari
+
+Experience
+Platform Engineer | Northstar Analytics | Apr 2021 – Present
+Built an internal developer platform on Google Cloud (GKE) with Kubernetes operators written in Go.
+Managed infrastructure as code with Terraform and Helm; observability with Prometheus and Grafana.
+Stack: Go, Kubernetes, Terraform, Helm, Prometheus, Grafana, GCP
+
+Site Reliability Engineer | Bluewater Hosting | Jul 2017 – Mar 2021
+Ran a fleet of Linux servers behind NGINX; automated configuration with Ansible.
+Moved CI from Jenkins to GitLab CI.
+Stack: Python, Bash, Ansible, NGINX, Jenkins, GitLab CI
+
+Education
+Diploma in Network Engineering, Algonquin College
+
+Skills
+Go · Kubernetes · Terraform · GCP · Linux · Ansible · Python

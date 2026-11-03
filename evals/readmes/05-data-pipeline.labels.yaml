@@ -1,0 +1,9 @@
+emails: [rain.etl.maintainer@example.com]
+uses:
+  - skill:pandas
+  - skill:gcp
+  - Airflow
+  - skill:terraform
+acceptable:
+  - BigQuery
+  - skill:python  # dags/rainfall.py implies it, but it is not written

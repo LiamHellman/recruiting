@@ -1,0 +1,7 @@
+name: Dana Kim
+emails: [dana.kim@example.com]
+uses:
+  - skill:rust
+  - clap
+  - rayon
+acceptable: []

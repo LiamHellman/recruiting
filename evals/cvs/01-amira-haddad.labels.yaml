@@ -1,0 +1,10 @@
+# Hand labels. Mapped skills by id; unmapped terms by the name the CV uses.
+name: Amira Haddad
+emails: [amira.haddad@example.com]
+received_on: 2026-10-15
+claimed: [skill:python, skill:django, skill:postgresql, skill:docker, skill:github-actions, skill:celery, skill:redis, skill:pytest, skill:sql, skill:bash, skill:git, skill:linux, Django REST Framework]
+acceptable: [skill:automated-testing, cron]
+# Latest date_last_seen expected for these skills.
+last_seen:
+  skill:python: 2026-10-15
+  skill:pytest: 2021-12-31

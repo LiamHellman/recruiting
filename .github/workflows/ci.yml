@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      postgres:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_USER: recruiting
+          POSTGRES_PASSWORD: recruiting
+          POSTGRES_DB: recruiting_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U recruiting -d recruiting_test"
+          --health-interval 5s --health-timeout 3s --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgresql+psycopg://recruiting:recruiting@localhost:5432/recruiting_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.4.17"  # matches the uv that wrote uv.lock; bump both together
+      - run: uv sync --locked
+      - run: uv run ruff check . ../evals
+      - run: uv run ruff format --check . ../evals
+      - run: uv run mypy app tests
+      - run: uv run pytest -q

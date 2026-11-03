@@ -1,0 +1,8 @@
+name: Hiroshi Tanaka
+emails: [hiroshi.tanaka@example.com]
+received_on: 2026-10-15
+claimed: [skill:c, skill:cpp, skill:rust, skill:python, skill:pytest, skill:linux, skill:git, FreeRTOS, Zephyr RTOS, CMake, CAN bus, ARM Cortex-M, Yocto]
+acceptable: [Zephyr, Make, skill:automated-testing, hardware-in-the-loop tests, Linux device drivers]
+last_seen:
+  skill:rust: 2026-10-15
+  skill:pytest: 2026-10-15

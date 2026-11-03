@@ -1,0 +1,8 @@
+name: Carmen Rojas
+emails: [carmen.rojas@example.com]
+received_on: 2026-10-15
+claimed: [skill:java, skill:spring-boot, skill:kafka, skill:postgresql, skill:kubernetes, skill:azure, skill:helm, skill:jenkins, skill:microservices, skill:linux, Java EE, Oracle Database, JUnit]
+acceptable: [skill:bash, shell scripts, skill:automated-testing, Oracle]
+last_seen:
+  skill:java: 2026-10-15
+  skill:linux: 2016-12-31

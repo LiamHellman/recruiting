@@ -1,0 +1,9 @@
+uses:
+  - skill:typescript
+  - skill:react
+  - Vite
+  - Tailwind CSS
+  - skill:nodejs
+  - Vitest
+acceptable:
+  - skill:automated-testing

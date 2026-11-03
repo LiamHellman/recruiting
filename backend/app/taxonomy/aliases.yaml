@@ -1,0 +1,50 @@
+# Alternative spellings -> canonical id. Each skill's id slug and display name already
+# match, so list only the other forms. Matching ignores case and extra whitespace.
+# An alias may point to exactly one skill. A human approves every new alias.
+
+aliases:
+  skill:python: [python3, python 3]
+  skill:javascript: [js, ecmascript, es6]
+  skill:typescript: [ts]
+  skill:csharp: [c sharp]
+  skill:cpp: [c plus plus, cplusplus]
+  skill:go: [golang]
+  skill:sql: [sql queries]
+  skill:bash: [shell scripting, shell]
+
+  skill:spring-boot: [springboot]
+  skill:nodejs: [node, node js]
+  skill:express: [express.js, expressjs]
+  skill:nestjs: [nest.js]
+  skill:rails: [ruby on rails, ror]
+  skill:dotnet: [.net core, .net framework]
+  skill:aspnet-core: [asp.net core, asp.net]
+  skill:react: [react.js, reactjs]
+
+  skill:postgresql: [postgres, psql, postgre sql]
+  skill:mysql: [my sql]
+  skill:sql-server: [microsoft sql server, mssql, ms sql, ms sql server]
+  skill:mongodb: [mongo]
+  skill:dynamodb: [dynamo db, amazon dynamodb]
+  skill:elasticsearch: [elastic search]
+  skill:kafka: [apache kafka]
+  skill:rabbitmq: [rabbit mq]
+
+  skill:aws: [amazon web services]
+  skill:gcp: [google cloud, google cloud platform]
+  skill:azure: [microsoft azure]
+  skill:docker: [docker compose]
+  skill:kubernetes: [k8s, kube]
+  skill:github-actions: [gh actions]
+  skill:gitlab-ci: [gitlab ci/cd]
+
+  skill:rest-api: [rest, restful, rest api, restful api, restful apis, restful services]
+  skill:microservices: [microservice, microservice architecture, microservices architecture]
+
+  skill:relational-database: [relational databases, rdbms, sql databases]
+  skill:nosql-database: [nosql, nosql databases]
+  skill:message-broker: [message queue, message queues, message brokers]
+  skill:cloud-platform: [cloud platforms, public cloud]
+  skill:ci-cd: [cicd, continuous integration, continuous delivery, continuous deployment]
+  skill:infrastructure-as-code: [iac]
+  skill:automated-testing: [unit testing, unit tests, automated tests, test automation, tdd, test-driven development, integration testing]

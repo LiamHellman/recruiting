@@ -1,0 +1,9 @@
+# Directional adjacency: evidence for `from` gives partial credit for `to`, as
+# direct(from) x similarity. One hop only. Similarities are hand-curated and
+# illustrative; they are scoring inputs, so ask before adding or changing one,
+# and re-run the bias tests after any change. The LLM never sets these.
+
+adjacency:
+  - {from: skill:django, to: skill:fastapi, similarity: 0.7}
+  - {from: skill:mysql, to: skill:postgresql, similarity: 0.8}
+  - {from: skill:gcp, to: skill:aws, similarity: 0.6}

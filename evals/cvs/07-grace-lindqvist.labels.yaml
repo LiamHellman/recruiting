@@ -1,0 +1,8 @@
+name: Grace Lindqvist
+emails: [grace.lindqvist@example.com]
+received_on: 2026-10-15
+claimed: [skill:csharp, skill:aspnet-core, skill:sql-server, skill:azure, skill:ci-cd, skill:dotnet, Entity Framework Core, Azure DevOps, WPF]
+acceptable: [Azure Functions, App Service, Azure App Service]
+last_seen:
+  skill:csharp: 2026-10-15
+  skill:azure: 2026-10-15

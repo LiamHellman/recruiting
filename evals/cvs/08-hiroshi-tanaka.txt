@@ -1,0 +1,19 @@
+Hiroshi Tanaka
+Embedded Software Engineer — Kitchener, ON
+hiroshi.tanaka@example.com
+
+Experience
+Embedded Software Engineer, Ridgeline Robotics, 2020–present
+- Firmware for motor controllers in C and C++ on ARM Cortex-M, running FreeRTOS.
+- Rewrote the CAN bus driver in Rust; added hardware-in-the-loop tests in Python with pytest.
+- Build system migration from Make to CMake.
+
+Firmware Developer, Coldwater Instruments, 2015–2020
+- Sensor firmware in C on the Zephyr RTOS.
+- Linux device drivers; Yocto-based images.
+
+Education
+B.A.Sc. Electrical Engineering, University of Toronto
+
+Skills
+C, C++, Rust, Python, FreeRTOS, Zephyr, CMake, Linux, Git

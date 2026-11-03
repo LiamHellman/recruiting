@@ -1,0 +1,3 @@
+must_have: [skill:python, skill:pandas, skill:sql, Airflow]
+nice_to_have: [dbt, Snowflake, Spark, skill:aws, skill:docker]
+seniority: junior

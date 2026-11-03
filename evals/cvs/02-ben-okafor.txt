@@ -1,0 +1,23 @@
+Ben Okafor
+Software Developer · Toronto, ON
+ben.okafor@example.com | 416-555-0199 | linkedin.com/in/ben-okafor-dev
+
+PROFILE
+Developer who enjoys building APIs and data tools. Currently at a logistics company working on internal tooling.
+
+WORK
+Software Developer, Northline Logistics (Toronto)
+March 2023 - present
+• Maintain internal reporting tools and dashboards.
+• Write SQL reports for the operations team.
+
+Junior Developer, Brightside Apps
+Sep 2020 - Feb 2023
+• Built "ShelfLife", an inventory API in Python and FastAPI (2021-2022).
+• Deployed the API on Heroku.
+
+TECHNICAL SKILLS
+Python · PostgreSQL · Docker · AWS · Redis · Git
+
+EDUCATION
+Diploma, Computer Programming — Seneca Polytechnic

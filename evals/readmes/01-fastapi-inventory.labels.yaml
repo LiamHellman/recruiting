@@ -1,0 +1,14 @@
+name: Priya Natarajan
+uses:
+  - skill:fastapi
+  - skill:pydantic
+  - skill:postgresql
+  - skill:sqlalchemy
+  - Alembic
+  - skill:celery
+  - skill:redis
+  - skill:docker
+  - skill:pytest
+  - skill:github-actions
+acceptable:
+  - skill:python  # only in a badge

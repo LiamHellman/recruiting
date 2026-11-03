@@ -1,0 +1,9 @@
+# The candidate's first name is also a skill: redaction must keep "Ruby" the language.
+name: Ruby Castellanos
+emails: [ruby.castellanos@example.com]
+received_on: 2026-10-15
+claimed: [skill:elixir, skill:ruby, skill:rails, skill:postgresql, skill:redis, skill:rabbitmq, skill:mysql, skill:docker, Phoenix]
+acceptable: []
+last_seen:
+  skill:elixir: 2026-10-15
+  skill:ruby: 2026-10-15

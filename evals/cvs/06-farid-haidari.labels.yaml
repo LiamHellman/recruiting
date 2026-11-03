@@ -1,0 +1,9 @@
+name: Farid Haidari
+emails: [farid.haidari@example.com]
+received_on: 2026-10-15
+claimed: [skill:go, skill:kubernetes, skill:terraform, skill:helm, skill:prometheus, skill:grafana, skill:gcp, skill:linux, skill:nginx, skill:ansible, skill:jenkins, skill:gitlab-ci, skill:python, skill:bash]
+acceptable: [skill:infrastructure-as-code, skill:ci-cd, GKE, Kubernetes operators]
+last_seen:
+  skill:jenkins: 2021-03-31
+  skill:gitlab-ci: 2021-03-31
+  skill:go: 2026-10-15
