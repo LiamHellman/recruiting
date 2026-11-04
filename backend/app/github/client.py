@@ -42,15 +42,23 @@ Project = Callable[[Any], Any]
 
 
 class GitHubError(SourceError):
-    pass
+    retryable = True  # unreachable, or kept failing: an outage until shown otherwise
 
 
 class GitHubNotConfigured(GitHubError):
-    pass
+    retryable = False
 
 
 class GitHubNotFound(GitHubError):
     """404, or 409 for an empty repository."""
+
+    retryable = False
+
+
+class GitHubNotPersonal(GitHubError):
+    """An organization account: only a person's own account is collected."""
+
+    retryable = False
 
 
 class GitHubRateLimited(GitHubError):

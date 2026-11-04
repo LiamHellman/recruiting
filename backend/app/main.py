@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 
-from app.api import candidates, jobs
+from app.api import candidates, jobs, review
 from app.llm.gateway import (
     BudgetExceeded,
     LLMError,
@@ -29,6 +29,7 @@ def create_app() -> FastAPI:
     app.add_exception_handler(LLMError, _llm_error_handler)
     app.include_router(jobs.router)
     app.include_router(candidates.router)
+    app.include_router(review.router)
 
     @app.get("/health")
     def health() -> dict[str, str]:

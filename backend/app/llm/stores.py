@@ -59,6 +59,7 @@ class SqlUsageLedger:
                 LLMUsage(
                     tenant_id=record.tenant_id,
                     job_id=record.job_id,
+                    candidate_id=record.candidate_id,
                     prompt_ref=record.prompt_ref,
                     model_requested=record.model_requested,
                     model_served=record.model_served,

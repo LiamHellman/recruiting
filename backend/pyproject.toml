@@ -6,6 +6,7 @@ requires-python = ">=3.12"
 dependencies = [
     "alembic>=1.20.1",
     "anthropic>=2.3.0",
+    "celery[redis]>=5.5",
     "fastapi>=0.162.0",
     "httpx>=0.28.1",
     "pdfplumber>=0.11.10",
@@ -41,6 +42,10 @@ plugins = ["pydantic.mypy"]
 exclude = ["app/db/migrations/"]
 
 [[tool.mypy.overrides]]
+module = ["celery.*", "kombu.*", "redis.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
 module = ["tests.*"]
 disallow_untyped_defs = false
 disallow_incomplete_defs = false
@@ -48,4 +53,4 @@ disallow_incomplete_defs = false
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
-markers = ["postgres: needs a real PostgreSQL at TEST_DATABASE_URL (skipped otherwise)"]
+markers = ["postgres: needs a real PostgreSQL at TEST_DATABASE_URL, and sometimes Redis at TEST_REDIS_URL (skipped otherwise)"]

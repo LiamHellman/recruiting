@@ -7,7 +7,13 @@ from sqlalchemy import create_engine, event
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
 
-from app.api.deps import get_file_store, get_gateway, get_github_clients
+from app.api.deps import (
+    build_registry,
+    get_file_store,
+    get_gateway,
+    get_github_clients,
+    get_pipeline_queue,
+)
 from app.config import DEFAULT_TENANT_ID
 from app.db.base import Base
 from app.db.models import Tenant
@@ -15,13 +21,15 @@ from app.db.session import get_session
 from app.github.cache import SqlHttpCache
 from app.llm.fake import FakeGateway
 from app.main import create_app
+from app.pipeline.graph import InlineQueue, PipelineContext
 from app.schemas.evidence import CvEducation, CvEntry, CvSkillMention, ParsedCv
 from app.schemas.job import ParsedPosting, PostingRequirement
 from app.sources.base import CandidateRef
 from app.sources.github import GitHubClientFactory
 from app.storage import InMemoryFileStore
+from app.taxonomy.loader import load_taxonomy
 from tests.github_fake import FakeGitHub
-from tests.github_world import fake_github, readme_reply
+from tests.github_world import AMIRA_TODAY, fake_github, readme_reply
 
 CVS = Path(__file__).parents[2] / "evals" / "cvs"
 
@@ -182,18 +190,38 @@ def file_store() -> InMemoryFileStore:
 
 
 @pytest.fixture
+def github_clients(sessions: sessionmaker[Session], github: FakeGitHub) -> GitHubClientFactory:
+    def cache_for(candidate: CandidateRef) -> SqlHttpCache:
+        return SqlHttpCache(sessions, candidate.tenant_id, candidate.id)
+
+    return GitHubClientFactory("test-token", cache_for, transport=github.transport())
+
+
+@pytest.fixture
+def pipeline_context(
+    sessions: sessionmaker[Session], gateway: FakeGateway, github_clients: GitHubClientFactory
+) -> PipelineContext:
+    taxonomy = load_taxonomy()
+    # One attempt: a test that scripts a failure sees it recorded, without retries.
+    return PipelineContext(
+        sessions,
+        build_registry(gateway, taxonomy, github_clients),
+        taxonomy,
+        today=lambda: AMIRA_TODAY,
+        max_attempts=1,
+    )
+
+
+@pytest.fixture
 def client(
     sessions: sessionmaker[Session],
     gateway: FakeGateway,
     file_store: InMemoryFileStore,
-    github: FakeGitHub,
+    github_clients: GitHubClientFactory,
+    pipeline_context: PipelineContext,
 ) -> Iterator[TestClient]:
     app = create_app()
-
-    def cache_for(candidate: CandidateRef) -> SqlHttpCache:
-        return SqlHttpCache(sessions, candidate.tenant_id, candidate.id)
-
-    github_clients = GitHubClientFactory("test-token", cache_for, transport=github.transport())
+    queue = InlineQueue(pipeline_context)
 
     def session_override() -> Iterator[Session]:
         with sessions() as session:
@@ -203,5 +231,6 @@ def client(
     app.dependency_overrides[get_gateway] = lambda: gateway
     app.dependency_overrides[get_file_store] = lambda: file_store
     app.dependency_overrides[get_github_clients] = lambda: github_clients
+    app.dependency_overrides[get_pipeline_queue] = lambda: queue
     with TestClient(app) as test_client:
         yield test_client

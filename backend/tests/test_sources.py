@@ -36,6 +36,9 @@ class RecordingSource:
     label: EvidenceSource | None = None
     payloads: list[object] = field(default_factory=list)
 
+    def input_key(self, candidate: CandidateRef, payload: object) -> str:
+        return f"{self.name}:{payload}"
+
     def ingest(self, candidate: CandidateRef, payload: object) -> IngestResult:
         self.payloads.append(payload)
         report = IngestReport(

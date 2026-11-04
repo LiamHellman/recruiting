@@ -2,7 +2,7 @@ import uuid
 from dataclasses import dataclass
 from datetime import date
 
-from app.audit.log import sha256_hex
+from app.audit.log import sha256_hex, stable_hash
 from app.extraction.cv import CV_PROMPT, build_cv_evidence, cv_user_content
 from app.extraction.redact import Redacted, redact
 from app.llm.gateway import CallContext, Gateway
@@ -40,6 +40,19 @@ class CvSource:
             is_skill_term=lambda term: self._taxonomy.lookup(term) is not None,
         )
 
+    def input_key(self, candidate: CandidateRef, payload: CvPayload) -> str:
+        return stable_hash(
+            {
+                "prompt": self._prompt.ref,
+                "model": self._prompt.model,
+                "text": sha256_hex(payload.text),
+                "document": payload.document_id,
+                "received_on": payload.received_on,
+                "names": candidate.names,
+                "emails": [candidate.emails, payload.emails],
+            }
+        )
+
     def ingest(self, candidate: CandidateRef, payload: CvPayload) -> IngestResult:
         redacted = self.redact(candidate, payload)
         content = cv_user_content(redacted.text)
@@ -47,7 +60,9 @@ class CvSource:
             self._prompt,
             content,
             ParsedCv,
-            CallContext(tenant_id=candidate.tenant_id, job_id=candidate.job_id),
+            CallContext(
+                tenant_id=candidate.tenant_id, job_id=candidate.job_id, candidate_id=candidate.id
+            ),
         )
         build = build_cv_evidence(
             result.output, redacted, str(payload.document_id), payload.received_on, self._taxonomy

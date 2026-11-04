@@ -212,7 +212,17 @@ def test_deleting_a_candidate_deletes_their_data_but_not_the_audit_log(engine: E
         candidate_id = _candidate_with_children(conn)
         record_count = conn.execute(text("SELECT count(*) FROM audit_log")).scalar_one()
         conn.execute(text("DELETE FROM candidates WHERE id = :c"), {"c": candidate_id})
-        for table in ("consents", "documents", "source_runs", "evidence_items", "github_cache"):
+        for table in (
+            "consents",
+            "documents",
+            "source_runs",
+            "evidence_items",
+            "github_cache",
+            "pipeline_steps",
+            "candidate_scores",
+            "candidate_overrides",
+            "candidate_decisions",
+        ):
             remaining = conn.execute(
                 text(f"SELECT count(*) FROM {table} WHERE candidate_id = :c"),
                 {"c": candidate_id},

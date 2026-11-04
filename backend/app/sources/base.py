@@ -37,6 +37,11 @@ class ProfileEvidenceSource[P](Protocol):
 
     def ingest(self, candidate: CandidateRef, payload: P) -> IngestResult: ...
 
+    def input_key(self, candidate: CandidateRef, payload: P) -> str:
+        """Hash of everything that determines the result, so the pipeline can skip a step
+        that already succeeded on the same input."""
+        ...
+
 
 class ConsentMissing(Exception):
     def __init__(self, source: str) -> None:
@@ -51,7 +56,10 @@ class UnknownSource(Exception):
 class SourceError(Exception):
     """A source could not collect its data (e.g. the GitHub account does not exist, or a
     rate limit would take too long). Recorded as a failed run; the message is shown to the
-    recruiter, so it must not contain secrets."""
+    recruiter, so it must not contain secrets. `retryable` says whether trying again later
+    could help."""
+
+    retryable: bool = False
 
 
 class SourceRegistry:
@@ -64,6 +72,12 @@ class SourceRegistry:
 
     def __contains__(self, name: object) -> bool:
         return name in self._sources
+
+    def input_key(self, candidate: CandidateRef, source: str, payload: Any) -> str:
+        impl = self._sources.get(source)
+        if impl is None:
+            raise UnknownSource(f"no source named {source!r}")
+        return impl.input_key(candidate, payload)
 
     def ingest(
         self,

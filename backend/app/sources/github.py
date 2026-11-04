@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import date
 from typing import Any
 
+from app.audit.log import stable_hash
 from app.extraction.github import RepoReadme, build_github_evidence, pull_status
 from app.extraction.readme import README_PROMPT, build_readme_mentions, readme_user_content
 from app.extraction.redact import Redacted, find_emails, redact
@@ -108,6 +109,22 @@ class GitHubSource:
         self._prompt = prompt or load_prompt(*README_PROMPT)
         self._max_readmes = max_readmes
 
+    def input_key(self, candidate: CandidateRef, payload: GitHubPayload) -> str:
+        """Not the date: a retried or re-queued pipeline does not refresh an account. An
+        explicit re-run (POST /candidates/{id}/sources/github/runs) does."""
+        return stable_hash(
+            {
+                "prompt": self._prompt.ref,
+                "model": self._prompt.model,
+                "handle": payload.handle,
+                "handle_from": payload.handle_from,
+                "site_url": payload.site_url,
+                "cv_links": payload.cv_links,
+                "names": candidate.names,
+                "emails": [candidate.emails, payload.emails],
+            }
+        )
+
     def ingest(self, candidate: CandidateRef, payload: GitHubPayload) -> IngestResult:
         client = self._clients(candidate)
         emails = tuple(dict.fromkeys((*candidate.emails, *payload.emails)))
@@ -196,7 +213,11 @@ class GitHubSource:
                     self._prompt,
                     content,
                     ParsedReadme,
-                    CallContext(tenant_id=candidate.tenant_id, job_id=candidate.job_id),
+                    CallContext(
+                        tenant_id=candidate.tenant_id,
+                        job_id=candidate.job_id,
+                        candidate_id=candidate.id,
+                    ),
                 )
             except (LLMRefusal, LLMOutputError) as exc:
                 rejected.append(

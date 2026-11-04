@@ -3,14 +3,16 @@ from datetime import UTC, datetime
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.api.deps import get_actor, get_gateway, get_taxonomy, get_tenant_id
+from app.api.deps import get_actor, get_gateway, get_pipeline_queue, get_taxonomy, get_tenant_id
 from app.audit.log import record, sha256_hex, stable_hash
-from app.db.models import Job
+from app.db.models import Candidate, Job
 from app.db.session import get_session
 from app.extraction.posting import parse_posting, spec_problems
 from app.llm.gateway import CallContext, Gateway
+from app.pipeline.graph import PipelineQueue, request_rescore
 from app.schemas.job import (
     CreateJobRequest,
     JobOut,
@@ -27,6 +29,7 @@ TenantDep = Annotated[uuid.UUID, Depends(get_tenant_id)]
 ActorDep = Annotated[str, Depends(get_actor)]
 GatewayDep = Annotated[Gateway, Depends(get_gateway)]
 TaxonomyDep = Annotated[Taxonomy, Depends(get_taxonomy)]
+QueueDep = Annotated[PipelineQueue, Depends(get_pipeline_queue)]
 
 
 def _to_out(job: Job) -> JobOut:
@@ -126,9 +129,11 @@ def update_job_skills(
     tenant_id: TenantDep,
     actor: ActorDep,
     taxonomy: TaxonomyDep,
+    queue: QueueDep,
 ) -> JobOut:
-    """Replace the job's skills. `confirm=true` confirms the job; `false` leaves or returns
-    it to draft, so a confirmed job that is edited must be confirmed again."""
+    """Replace the job's skills. `confirm=true` confirms the job and queues a score for its
+    candidates; `false` leaves or returns it to draft, so a confirmed job that is edited must
+    be confirmed again."""
     job = load_job(session, tenant_id, job_id)
     spec = body.to_spec()
     problems = spec_problems(spec, job.posting_text, taxonomy, confirm=body.confirm)
@@ -154,4 +159,11 @@ def update_job_skills(
         },
     )
     session.commit()
+    if body.confirm:
+        _rescore_all(session, queue, job)
     return _to_out(job)
+
+
+def _rescore_all(session: Session, queue: PipelineQueue, job: Job) -> None:
+    candidates = session.scalars(select(Candidate).where(Candidate.job_id == job.id))
+    request_rescore(session, queue, candidates)

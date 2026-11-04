@@ -1,0 +1,35 @@
+# Golden set v0: two confirmed postings and a hand-made ranking of the same 10 fictional
+# candidates (candidates.yaml) for each.
+#
+# Ranking: tiers, best first; candidates in a tier are not ordered against each other.
+# Judged from the CVs and accounts alone, the way a recruiter reads them, and written before
+# the scorer was run on them. Never edit a tier to match the scorer: a disagreement is the
+# finding.
+#
+# PROVENANCE: drafted by Claude on 2026-11-03, not by a recruiter. Treat tau against these as
+# a smoke test until a recruiter has reviewed or replaced the tiers (9.2 grows this set).
+
+as_of: 2026-10-15
+
+postings:
+  backend-python:
+    title: Backend Engineer (Python)  # the worked example from CLAUDE.md
+    must_have: [python, fastapi, postgresql]
+    nice_to_have: [docker, aws, redis]
+    ranking:
+      - [amira-haddad]  # Python, Django, PostgreSQL, reviewed open-source work
+      - [ben-okafor]  # has built with this exact stack, though not recently
+      - [elif-kaya, ruby-castellanos]  # one has Python and AWS; the other backend and PostgreSQL
+      - [carmen-rojas]  # strong backend engineer, on the JVM; PostgreSQL carries over
+      - [farid-haidari, ines-moreau, devi-raman, hiroshi-tanaka]  # incidental overlap
+      - [grace-lindqvist]  # no overlap
+
+  platform-go:
+    title: Platform Engineer (Go)  # based on evals/postings/02-platform-go.md
+    must_have: [go, kubernetes, terraform, cloud-platform]  # the umbrella skill: any cloud
+    nice_to_have: [helm, prometheus, python]
+    ranking:
+      - [farid-haidari]  # exactly this job
+      - [carmen-rojas, elif-kaya]  # Kubernetes, Helm and Azure; Terraform, AWS and Python
+      - [amira-haddad, ben-okafor, grace-lindqvist, ruby-castellanos]  # adjacent, little overlap
+      - [devi-raman, hiroshi-tanaka, ines-moreau]  # no platform experience

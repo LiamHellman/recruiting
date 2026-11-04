@@ -68,6 +68,7 @@ class BudgetExceeded(LLMError):
 class CallContext:
     tenant_id: uuid.UUID
     job_id: uuid.UUID | None = None
+    candidate_id: uuid.UUID | None = None
 
 
 @dataclass(frozen=True)
@@ -117,6 +118,7 @@ class UsageRecord:
     usage: TokenUsage
     cost_usd: Decimal | None
     latency_ms: int
+    candidate_id: uuid.UUID | None = None
 
 
 @dataclass(frozen=True)
@@ -249,6 +251,7 @@ class Gateway:
                     usage=TokenUsage(),
                     cost_usd=Decimal(0),
                     latency_ms=0,
+                    candidate_id=ctx.candidate_id,
                 )
             )
             return LLMResult(
@@ -286,6 +289,7 @@ class Gateway:
                 usage=response.usage,
                 cost_usd=cost,
                 latency_ms=latency_ms,
+                candidate_id=ctx.candidate_id,
             )
         )
         logger.info(

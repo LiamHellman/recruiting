@@ -60,13 +60,19 @@ class PullCard(BaseModel):
     reason: str | None  # why it does not count
 
 
+class RepoActivity(BaseModel):
+    days: int  # first to last commit by the candidate
+    commits: int  # by the candidate
+
+
 class DepthSignals(BaseModel):
-    """Deterministic inputs to the scorer's depth score, from repos with ownership > 0 and
-    qualifying merged PRs. Turning these into 0-1 is the scorer's job (an open decision)."""
+    """Deterministic inputs to the depth score, from repos with ownership > 0 and qualifying
+    merged PRs. `app/scoring/depth.py` turns these into 0-1."""
 
     credited_repos: int
     longest_active_days: int
     longest_active_repo: str | None
+    activity: list[RepoActivity] = []  # per credited repo; no names, only what depth needs
     repos_with_tests: list[str]
     repos_with_ci: list[str]
     repos_with_docker: list[str]

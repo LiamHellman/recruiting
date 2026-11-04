@@ -7,13 +7,15 @@ from fastapi.testclient import TestClient
 from sqlalchemy import select
 from sqlalchemy.orm import Session, sessionmaker
 
-from app.api.deps import get_github_clients
+from app.api.deps import build_registry, get_pipeline_queue
 from app.db.models import AuditLog, Candidate, Document, EvidenceRecord, GitHubCacheEntry
 from app.extraction.text import DOCX, MAX_BYTES
 from app.github.client import InMemoryHttpCache
 from app.llm.fake import FakeGateway
+from app.pipeline.graph import InlineQueue, PipelineContext
 from app.sources.github import GitHubClientFactory
 from app.storage import InMemoryFileStore
+from app.taxonomy.loader import load_taxonomy
 from tests.conftest import POSTING, fixture_cv
 from tests.docgen import make_docx, make_pdf
 from tests.github_fake import FakeGitHub
@@ -345,11 +347,14 @@ def test_a_rerun_replaces_the_sources_evidence(
 
 
 def test_without_a_github_token_the_run_fails_and_can_be_retried_later(
-    client: TestClient, job_id: str
+    client: TestClient, job_id: str, sessions: sessionmaker[Session], gateway: FakeGateway
 ):
-    client.app.dependency_overrides[get_github_clients] = lambda: GitHubClientFactory(  # type: ignore[attr-defined]
-        None, lambda c: InMemoryHttpCache()
+    no_token = GitHubClientFactory(None, lambda c: InMemoryHttpCache())
+    taxonomy = load_taxonomy()
+    queue = InlineQueue(
+        PipelineContext(sessions, build_registry(gateway, taxonomy, no_token), taxonomy)
     )
+    client.app.dependency_overrides[get_pipeline_queue] = lambda: queue  # type: ignore[attr-defined]
     candidate = applied(client, job_id, github_handle="amira-h", consent_github="true")
     [github_run] = [r for r in candidate["runs"] if r["source"] == "github"]
     assert github_run["status"] == "failed"

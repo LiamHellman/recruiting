@@ -11,6 +11,8 @@ from app.github.cache import SqlHttpCache
 from app.github.collect import Limits
 from app.llm.gateway import AnthropicBackend, Budgets, Gateway
 from app.llm.stores import SqlResultCache, SqlUsageLedger
+from app.pipeline.graph import PipelineQueue
+from app.pipeline.tasks import CeleryQueue
 from app.sources.base import CandidateRef, SourceRegistry
 from app.sources.cv import CvSource
 from app.sources.github import GitHubClientFactory, GitHubSource
@@ -72,10 +74,8 @@ def get_github_clients() -> GitHubClientFactory:
     )
 
 
-def get_registry(
-    gateway: Annotated[Gateway, Depends(get_gateway)],
-    taxonomy: Annotated[Taxonomy, Depends(get_taxonomy)],
-    github_clients: Annotated[GitHubClientFactory, Depends(get_github_clients)],
+def build_registry(
+    gateway: Gateway, taxonomy: Taxonomy, github_clients: GitHubClientFactory
 ) -> SourceRegistry:
     # Site (Phase 6) and LinkedIn uploads (Phase 7) register here.
     limits = Limits(max_repos=get_settings().github_max_repos)
@@ -85,3 +85,15 @@ def get_registry(
             GitHubSource(github_clients, gateway, taxonomy, limits=limits),
         ]
     )
+
+
+def get_registry(
+    gateway: Annotated[Gateway, Depends(get_gateway)],
+    taxonomy: Annotated[Taxonomy, Depends(get_taxonomy)],
+    github_clients: Annotated[GitHubClientFactory, Depends(get_github_clients)],
+) -> SourceRegistry:
+    return build_registry(gateway, taxonomy, github_clients)
+
+
+def get_pipeline_queue() -> PipelineQueue:
+    return CeleryQueue()

@@ -19,7 +19,13 @@ from typing import Any
 from urllib.parse import parse_qs, quote, urlsplit
 
 from app.extraction.manifests import is_excluded, manifest_kind
-from app.github.client import GitHubClient, GitHubError, GitHubNotFound, api_path, repo_path
+from app.github.client import (
+    GitHubClient,
+    GitHubNotFound,
+    GitHubNotPersonal,
+    api_path,
+    repo_path,
+)
 from app.github.ownership import RepoFacts, pull_disqualifier
 
 README = re.compile(r"readme(\.(md|markdown|rst|txt))?", re.IGNORECASE)
@@ -299,7 +305,7 @@ class Collector:
             raise GitHubNotFound(f"GitHub account '{self._handle}' not found") from exc
         d = entry.data
         if d["type"] != "User":
-            raise GitHubError(f"GitHub account '{d['login']}' is not a personal account")
+            raise GitHubNotPersonal(f"GitHub account '{d['login']}' is not a personal account")
         return AccountSnapshot(
             login=d["login"],
             id=d["id"],

@@ -39,6 +39,18 @@ class Taxonomy:
         """Skills whose evidence gives partial credit for `skill_id`, with similarity."""
         return {src: sim for (src, dst), sim in self.adjacency.items() if dst == skill_id}
 
+    def descendants(self, skill_id: str) -> set[str]:
+        """Every skill below `skill_id` in the parent hierarchy."""
+        found: set[str] = set()
+        for skill in self.skills.values():
+            node = skill
+            while node.parent is not None:
+                if node.parent == skill_id:
+                    found.add(skill.id)
+                    break
+                node = self.skills[node.parent]
+        return found
+
 
 class TaxonomyError(ValueError):
     def __init__(self, issues: list[str]) -> None:

@@ -4,7 +4,7 @@
 # name:   display name; also matched as an alias.
 # parent: optional broader skill (fastapi -> python-web-framework).
 # group:  true for umbrella skills such as "relational database". Postings can ask for
-#         them, but how child evidence credits a group is an open scoring decision.
+#         them; evidence for a child counts in full (app/scoring/scorer.py).
 #
 # Nothing is added here automatically. Unknown posting terms stay unmapped until a human
 # adds or maps them.

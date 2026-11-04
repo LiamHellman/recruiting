@@ -36,3 +36,14 @@ count by name. Quote rejections and leaks as for the CV extractor.
 | Date | Eval | Prompt | Model | READMEs | P / R | Quote rejections | Leaks | Cost | Note |
 |---|---|---|---|---|---|---|---|---|---|
 | 2026-11-03 | readme | readme_extractor/v1 | claude-opus-5-5 | 8 | 98% / 98% | 0% | 0 | $0.0340 | baseline; a run minutes earlier gave 95% / 98% ($0.0400): misses vary between runs (AWS written as "AWS ECS"; "npm", "integration tests" extra) |
+
+## Ranking (`evals/run_ranking_eval.py`)
+
+Golden set: `evals/golden/` (the 10 fictional candidates of `evals/cvs/`, two confirmed
+postings, a hand-made ranking in tiers). Tau is Kendall's tau-b between the scorer's order and
+the ranking. Offline and free: the scorer runs on stored evidence, with no LLM. The tiers were
+drafted by Claude, not a recruiter, so this is a smoke test until a recruiter reviews them.
+
+| Date | Scoring | Candidates | Tau by posting | Note |
+|---|---|---|---|---|
+| 2026-11-03 | scoring v1 | 10 | backend-python 0.81, platform-go 0.80 | baseline; tiers drafted by Claude, pending a recruiter's review |

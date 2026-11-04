@@ -16,12 +16,15 @@ from app.db.base import Base
 from app.schemas.candidate import CandidateEvidenceOut, CandidateOut
 from app.schemas.evidence import CvProfile, EvidenceItem, IngestReport, ParsedCv
 from app.schemas.github import GitHubProfile, ParsedReadme
+from app.schemas.review import OverrideOut, RankingsOut
 
 SENSITIVE = re.compile(
     r"photo|picture|image|avatar|birth|dob|age$|^age|gender|sex$|marital|spouse|children"
     r"|nationality|citizenship|religion|ethnic|race|address|postal|zip|street",
     re.IGNORECASE,
 )
+# Reviewed by hand: names the pattern catches that hold nothing sensitive.
+ALLOWED = {"coverage"}  # which must-haves have evidence
 
 
 def field_names(schema: dict[str, Any]) -> set[str]:
@@ -46,7 +49,10 @@ def test_no_schema_has_a_sensitive_field():
         IngestReport,
         CandidateOut,
         CandidateEvidenceOut,
+        RankingsOut,
+        OverrideOut,
     ]
     for model in models:
-        flagged = {n for n in field_names(model.model_json_schema()) if SENSITIVE.search(n)}
+        names = field_names(model.model_json_schema()) - ALLOWED
+        flagged = {n for n in names if SENSITIVE.search(n)}
         assert not flagged, model.__name__

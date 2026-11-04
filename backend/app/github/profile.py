@@ -1,9 +1,9 @@
 """The recruiter-facing GitHub profile: repository and pull-request cards, and the depth
-signals the scorer will turn into a 0-1 depth score. Pure functions over a snapshot.
+signals behind the 0-1 depth score (app/scoring/depth.py). Pure functions over a snapshot.
 
 Only repositories with ownership > 0 and pull requests that count feed the depth signals,
-so forks, learning projects and trivial PRs add nothing. Stars are reported raw; the
-scorer must treat them as a weak, capped input and never as a skill level.
+so forks, learning projects and trivial PRs add nothing. Stars are reported raw for the
+recruiter; the depth score leaves them out.
 """
 
 from collections.abc import Callable, Mapping
@@ -18,6 +18,7 @@ from app.schemas.github import (
     GitHubProfile,
     IdentityAssessment,
     PullCard,
+    RepoActivity,
     RepoCard,
 )
 from app.taxonomy.loader import Taxonomy
@@ -82,6 +83,11 @@ def depth_signals(
         credited_repos=len(credited),
         longest_active_days=longest[0],
         longest_active_repo=longest[1],
+        activity=[
+            RepoActivity(days=days, commits=r.candidate_commits)
+            for r in credited
+            if (days := _active_days(r)) is not None
+        ],
         repos_with_tests=having(is_test_path),
         repos_with_ci=having(is_ci_path),
         repos_with_docker=having(is_docker_path),

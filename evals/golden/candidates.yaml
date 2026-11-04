@@ -1,0 +1,140 @@
+# Evidence for the 10 fictional candidates of evals/cvs/, as the pipeline would store it.
+# Claims follow each CV: a skills-section mention is current (the received date, 2026-10-15),
+# one inside a past job is dated by its end. GitHub evidence is invented to fit the persona;
+# Amira's and Ben's follow tests/github_world.py. Only three candidates share an account.
+#
+# Item: {skill, level, seen, source (default cv), ownership (default 1.0)}
+# depth: the signals behind the rubric, for candidates who shared an account.
+
+candidates:
+  amira-haddad:
+    depth: {days: 241, commits: 140, tests: true, ci: true, docker: true, external_prs: 2}
+    evidence:
+      - {skill: python, level: claimed, seen: 2026-10-15}
+      - {skill: django, level: claimed, seen: 2026-10-15}
+      - {skill: postgresql, level: claimed, seen: 2026-10-15}
+      - {skill: redis, level: claimed, seen: 2026-10-15}
+      - {skill: docker, level: claimed, seen: 2026-10-15}
+      - {skill: celery, level: claimed, seen: 2026-10-15}
+      - {skill: sql, level: claimed, seen: 2026-10-15}
+      - {skill: github-actions, level: claimed, seen: 2026-10-15}
+      - {skill: pytest, level: claimed, seen: 2021-12-31}
+      - {skill: python, level: deep, seen: 2026-07-02, source: github}
+      - {skill: django, level: deep, seen: 2026-07-02, source: github}
+      - {skill: postgresql, level: demonstrated, seen: 2026-08-14, source: github}
+      - {skill: docker, level: demonstrated, seen: 2026-08-14, source: github}
+
+  ben-okafor:
+    depth: {days: 473, commits: 23, tests: true, ci: false, docker: false, external_prs: 0}
+    evidence:
+      - {skill: python, level: claimed, seen: 2026-10-15}
+      - {skill: postgresql, level: claimed, seen: 2026-10-15}
+      - {skill: docker, level: claimed, seen: 2026-10-15}
+      - {skill: aws, level: claimed, seen: 2026-10-15}
+      - {skill: redis, level: claimed, seen: 2026-10-15}
+      - {skill: sql, level: claimed, seen: 2026-10-15}
+      - {skill: fastapi, level: claimed, seen: 2023-02-28}
+      - {skill: python, level: demonstrated, seen: 2022-06-18, source: github}
+      - {skill: fastapi, level: demonstrated, seen: 2022-06-18, source: github}
+
+  carmen-rojas:
+    evidence:
+      - {skill: java, level: claimed, seen: 2026-10-15}
+      - {skill: spring-boot, level: claimed, seen: 2026-10-15}
+      - {skill: kafka, level: claimed, seen: 2026-10-15}
+      - {skill: postgresql, level: claimed, seen: 2026-10-15}
+      - {skill: kubernetes, level: claimed, seen: 2026-10-15}
+      - {skill: azure, level: claimed, seen: 2026-10-15}
+      - {skill: helm, level: claimed, seen: 2026-10-15}
+      - {skill: jenkins, level: claimed, seen: 2026-10-15}
+      - {skill: microservices, level: claimed, seen: 2026-10-15}
+      - {skill: linux, level: claimed, seen: 2016-12-31}
+
+  devi-raman:
+    evidence:
+      - {skill: typescript, level: claimed, seen: 2026-10-15}
+      - {skill: javascript, level: claimed, seen: 2026-10-15}
+      - {skill: react, level: claimed, seen: 2026-10-15}
+      - {skill: nodejs, level: claimed, seen: 2026-10-15}
+      - {skill: express, level: claimed, seen: 2026-10-15}
+      - {skill: mongodb, level: claimed, seen: 2026-10-15}
+      - {skill: graphql, level: claimed, seen: 2026-10-15}
+      - {skill: python, level: claimed, seen: 2026-10-15}
+      - {skill: sql, level: claimed, seen: 2026-10-15}
+      - {skill: sqlite, level: claimed, seen: 2023-12-31}
+      - {skill: github-actions, level: claimed, seen: 2025-08-31}
+
+  elif-kaya:
+    evidence:
+      - {skill: python, level: claimed, seen: 2026-10-15}
+      - {skill: sql, level: claimed, seen: 2026-10-15}
+      - {skill: kafka, level: claimed, seen: 2026-10-15}
+      - {skill: aws, level: claimed, seen: 2026-10-15}
+      - {skill: terraform, level: claimed, seen: 2026-10-15}
+      - {skill: pandas, level: claimed, seen: 2026-10-15}
+      - {skill: sql-server, level: claimed, seen: 2021-05-31}
+      - {skill: bash, level: claimed, seen: 2021-05-31}
+
+  farid-haidari:
+    depth: {days: 540, commits: 310, tests: true, ci: true, docker: true, external_prs: 1}
+    evidence:
+      - {skill: go, level: claimed, seen: 2026-10-15}
+      - {skill: kubernetes, level: claimed, seen: 2026-10-15}
+      - {skill: terraform, level: claimed, seen: 2026-10-15}
+      - {skill: helm, level: claimed, seen: 2026-10-15}
+      - {skill: prometheus, level: claimed, seen: 2026-10-15}
+      - {skill: grafana, level: claimed, seen: 2026-10-15}
+      - {skill: gcp, level: claimed, seen: 2026-10-15}
+      - {skill: python, level: claimed, seen: 2026-10-15}
+      - {skill: linux, level: claimed, seen: 2026-10-15}
+      - {skill: ansible, level: claimed, seen: 2026-10-15}
+      - {skill: nginx, level: claimed, seen: 2021-03-31}
+      - {skill: jenkins, level: claimed, seen: 2021-03-31}
+      - {skill: gitlab-ci, level: claimed, seen: 2021-03-31}
+      - {skill: go, level: demonstrated, seen: 2026-09-20, source: github}
+      - {skill: kubernetes, level: demonstrated, seen: 2026-09-20, source: github}
+      - {skill: terraform, level: demonstrated, seen: 2026-09-20, source: github}
+      - {skill: helm, level: demonstrated, seen: 2026-09-20, source: github}
+
+  grace-lindqvist:
+    evidence:
+      - {skill: csharp, level: claimed, seen: 2026-10-15}
+      - {skill: aspnet-core, level: claimed, seen: 2026-10-15}
+      - {skill: dotnet, level: claimed, seen: 2026-10-15}
+      - {skill: sql-server, level: claimed, seen: 2026-10-15}
+      - {skill: azure, level: claimed, seen: 2026-10-15}
+      - {skill: ci-cd, level: claimed, seen: 2026-10-15}
+
+  hiroshi-tanaka:
+    evidence:
+      - {skill: c, level: claimed, seen: 2026-10-15}
+      - {skill: cpp, level: claimed, seen: 2026-10-15}
+      - {skill: rust, level: claimed, seen: 2026-10-15}
+      - {skill: python, level: claimed, seen: 2026-10-15}
+      - {skill: pytest, level: claimed, seen: 2026-10-15}
+      - {skill: linux, level: claimed, seen: 2026-10-15}
+      - {skill: git, level: claimed, seen: 2026-10-15}
+
+  ines-moreau:
+    evidence:
+      - {skill: ruby, level: claimed, seen: 2026-10-15}
+      - {skill: rails, level: claimed, seen: 2026-10-15}
+      - {skill: javascript, level: claimed, seen: 2026-10-15}
+      - {skill: postgresql, level: claimed, seen: 2026-10-15}
+      - {skill: git, level: claimed, seen: 2026-10-15}
+      - {skill: github-actions, level: claimed, seen: 2026-10-15}
+
+  ruby-castellanos:
+    depth: {days: 400, commits: 150, tests: true, ci: true, docker: true, external_prs: 0}
+    evidence:
+      - {skill: elixir, level: claimed, seen: 2026-10-15}
+      - {skill: ruby, level: claimed, seen: 2026-10-15}
+      - {skill: rails, level: claimed, seen: 2026-10-15}
+      - {skill: postgresql, level: claimed, seen: 2026-10-15}
+      - {skill: redis, level: claimed, seen: 2026-10-15}
+      - {skill: rabbitmq, level: claimed, seen: 2026-10-15}
+      - {skill: mysql, level: claimed, seen: 2026-10-15}
+      - {skill: docker, level: claimed, seen: 2026-10-15}
+      - {skill: elixir, level: demonstrated, seen: 2026-09-01, source: github}
+      - {skill: postgresql, level: demonstrated, seen: 2026-09-01, source: github}
+      - {skill: redis, level: demonstrated, seen: 2026-09-01, source: github}

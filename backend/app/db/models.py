@@ -3,7 +3,7 @@ from datetime import UTC, date, datetime
 from decimal import Decimal
 from typing import Any
 
-from sqlalchemy import CheckConstraint, ForeignKey, Index, Numeric, String, Text, text
+from sqlalchemy import CheckConstraint, ForeignKey, Index, Numeric, String, Text, false, text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.base import Base, BigIntPK, JSONType
@@ -65,6 +65,10 @@ class LLMUsage(Base):
     id: Mapped[int] = mapped_column(BigIntPK, primary_key=True, autoincrement=True)
     tenant_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("tenants.id"), index=True)
     job_id: Mapped[uuid.UUID | None] = mapped_column(index=True)
+    # Cost per candidate. Spend outlives the candidate, so deleting them only clears this.
+    candidate_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("candidates.id", ondelete="SET NULL"), index=True
+    )
     prompt_ref: Mapped[str] = mapped_column(String(100))
     model_requested: Mapped[str] = mapped_column(String(100))
     model_served: Mapped[str | None] = mapped_column(String(100))
@@ -193,6 +197,8 @@ class SourceRun(Base):
     report: Mapped[dict[str, Any] | None] = mapped_column(JSONType)  # IngestReport
     profile: Mapped[dict[str, Any] | None] = mapped_column(JSONType)  # e.g. CvProfile
     error: Mapped[str | None] = mapped_column(Text)
+    # A failed run the queue should try again (an outage, not e.g. "account not found").
+    retryable: Mapped[bool] = mapped_column(default=False, server_default=false())
     created_at: Mapped[datetime] = mapped_column(default=utcnow)
 
 
@@ -224,6 +230,101 @@ class EvidenceRecord(Base):
     date_last_seen: Mapped[date | None]
     ownership: Mapped[float]
     confidence: Mapped[float]
+    created_at: Mapped[datetime] = mapped_column(default=utcnow)
+
+
+class PipelineStep(Base):
+    """Where one step of a candidate's task graph stands. `input_hash` makes steps idempotent:
+    a step that succeeded on the same input is not run again."""
+
+    __tablename__ = "pipeline_steps"
+    __table_args__ = (
+        CheckConstraint(
+            "status IN ('pending', 'running', 'retrying', 'succeeded', 'failed', 'skipped', "
+            "'dead_letter')",
+            name="ck_pipeline_steps_status",
+        ),
+        Index("ix_pipeline_steps_status", "tenant_id", "status"),
+    )
+
+    candidate_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("candidates.id", ondelete="CASCADE"), primary_key=True
+    )
+    step: Mapped[str] = mapped_column(String(30), primary_key=True)
+    tenant_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("tenants.id"))
+    status: Mapped[str] = mapped_column(String(20))
+    input_hash: Mapped[str | None] = mapped_column(String(64))
+    attempts: Mapped[int] = mapped_column(default=0)
+    error: Mapped[str | None] = mapped_column(Text)
+    updated_at: Mapped[datetime] = mapped_column(default=utcnow, onupdate=utcnow)
+
+
+class CandidateScore(Base):
+    """The candidate's current score. Every change is also in the audit log, as IDs, hashes
+    and numbers."""
+
+    __tablename__ = "candidate_scores"
+
+    candidate_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("candidates.id", ondelete="CASCADE"), primary_key=True
+    )
+    tenant_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("tenants.id"), index=True)
+    job_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("jobs.id"), index=True)
+    version: Mapped[str] = mapped_column(String(20))
+    spec_hash: Mapped[str] = mapped_column(String(64))
+    input_hash: Mapped[str] = mapped_column(String(64))
+    total: Mapped[float]
+    has_depth_signals: Mapped[bool]  # False: depth is 0 because nothing was shown, not low
+    result: Mapped[dict[str, Any]]  # ScoreResult
+    scored_at: Mapped[datetime] = mapped_column(default=utcnow)
+
+
+class CandidateOverride(Base):
+    """One recruiter action, append-only: the latest for a target wins. Targets are stable
+    keys, not evidence row IDs, because re-running a source replaces its rows. Reasons are
+    free text about a person, so they live here and the audit log holds their hash."""
+
+    __tablename__ = "candidate_overrides"
+    __table_args__ = (
+        CheckConstraint(
+            "kind IN ('level', 'evidence', 'note', 'identity')",
+            name="ck_candidate_overrides_kind",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(BigIntPK, primary_key=True, autoincrement=True)
+    tenant_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("tenants.id"), index=True)
+    candidate_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("candidates.id", ondelete="CASCADE"), index=True
+    )
+    kind: Mapped[str] = mapped_column(String(20))
+    target: Mapped[dict[str, Any]]  # kind-specific; see app/scoring/inputs.py
+    reason: Mapped[str] = mapped_column(Text)
+    actor: Mapped[str] = mapped_column(String(200))
+    created_at: Mapped[datetime] = mapped_column(default=utcnow)
+
+
+class CandidateDecision(Base):
+    """A recruiter's decision, append-only: the latest is the current one."""
+
+    __tablename__ = "candidate_decisions"
+    __table_args__ = (
+        CheckConstraint(
+            "decision IN ('advance', 'hold', 'reject')", name="ck_candidate_decisions_decision"
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(BigIntPK, primary_key=True, autoincrement=True)
+    tenant_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("tenants.id"), index=True)
+    candidate_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("candidates.id", ondelete="CASCADE"), index=True
+    )
+    decision: Mapped[str] = mapped_column(String(20))
+    reason: Mapped[str] = mapped_column(Text)
+    actor: Mapped[str] = mapped_column(String(200))
+    # What the recruiter was looking at, if the candidate had a score.
+    score_total: Mapped[float | None]
+    score_input_hash: Mapped[str | None] = mapped_column(String(64))
     created_at: Mapped[datetime] = mapped_column(default=utcnow)
 
 

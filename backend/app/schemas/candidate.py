@@ -1,10 +1,13 @@
 from datetime import datetime
+from decimal import Decimal
 from typing import Literal
 
 from pydantic import BaseModel
 
 from app.schemas.evidence import CvProfile, EvidenceItem, EvidenceSource, RejectedItem
 from app.schemas.github import GitHubProfile
+from app.schemas.review import DecisionOut, OverrideOut, PipelineStepOut
+from app.schemas.score import ScoreResult
 
 
 class ConsentOut(BaseModel):
@@ -55,11 +58,14 @@ class CandidateOut(BaseModel):
     consents: list[ConsentOut]
     documents: list[DocumentOut]
     runs: list[SourceRunOut]  # newest first
+    pipeline: list[PipelineStepOut]
+    llm_cost_usd: Decimal
 
 
 class EvidenceOut(EvidenceItem):
     id: str
     run_id: str
+    marked_wrong: bool  # by a recruiter; kept for the record, not counted
 
 
 class CandidateEvidenceOut(BaseModel):
@@ -67,3 +73,6 @@ class CandidateEvidenceOut(BaseModel):
     evidence: list[EvidenceOut]
     cv_profile: CvProfile | None
     github_profile: GitHubProfile | None
+    score: ScoreResult | None
+    overrides: list[OverrideOut]  # oldest first
+    decisions: list[DecisionOut]  # oldest first
